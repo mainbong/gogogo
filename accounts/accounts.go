@@ -29,8 +29,16 @@ func (a Account) Balance() int {
 	return a.balance
 }
 
+func (a *Account) Withdraw(amount int) {
+	if a.balance < amount {
+		panic("Balance is less than amount")
+	}
+	a.balance -= amount
+}
+
+// Method 오버로드가 안됨. 오로지 Receiver 가 다를 경우에만 같은 메소드명이 허용됨.
 // Withdraw x amount from your account
-func (a *Account) Withdraw(amount int) error {
+func (a *Account) SafeWithdraw(amount int) error {
 	if a.balance < amount {
 		return errNoMoney
 	}
